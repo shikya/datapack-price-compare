@@ -32,33 +32,35 @@
 
     let ctx = document.getElementById('myChart').getContext('2d');
 
-    fetch('data.json').then(packs => {
+    fetch('data.json')
+      .then(response => response.json())
+      .then(packs => {
 
-      const labels = packs.map(d => d.price);
-      const data = packs.map(p => p.price / (p.validity * p.maxUsagePerDay));
+        const labels = packs.map(d => d.price);
+        const data = packs.map(p => p.price / (p.validity * p.maxUsagePerDay));
 
-      let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'data per ₹',
-            data: data,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: false,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
+        let myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'data per ₹',
+              data: data,
+              borderWidth: 1
             }]
+          },
+          options: {
+            responsive: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
           }
-        }
+        });
       });
-    });
 
   </script>
 </body>
